@@ -9,7 +9,7 @@ import Foundation
 
 struct Recipe: Codable, Hashable {
     let cuisine: String
-    let cuisineName: String
+    let name: String
     let photoURLLarge: String?
     let photoURLSmall: String?
     let sourceURL: String?
