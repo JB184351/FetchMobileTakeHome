@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Recipe: Codable {
+struct Recipe: Codable, Hashable {
     let cuisine: String
     let cuisineName: String
     let photoURLLarge: String?
     let photoURLSmall: String?
-    let uuid: String
     let sourceURL: String?
+    let uuid: String
     let youtubeURL: String?
 }
