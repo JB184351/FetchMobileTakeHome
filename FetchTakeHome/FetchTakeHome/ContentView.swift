@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    var recipes: [Recipe] = []
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List {
+                ForEach(1...10, id: \.self) { _ in 
+                    RecipeRowView()
+                }
+            }
         }
-        .padding()
     }
 }
 
