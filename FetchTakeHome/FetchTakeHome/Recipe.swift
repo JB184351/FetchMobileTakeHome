@@ -15,4 +15,14 @@ struct Recipe: Codable, Hashable {
     let sourceURL: String?
     let uuid: String
     let youtubeURL: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case cuisine
+        case name
+        case photoURLLarge = "photo_url_large"
+        case photoURLSmall = "photo_url_small"
+        case sourceURL = "source_url"
+        case uuid
+        case youtubeURL = "youtube_url"
+    }
 }
