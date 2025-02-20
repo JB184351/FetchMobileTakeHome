@@ -17,6 +17,7 @@ struct ContentView: View {
                     RecipeRowView(recipe: recipe)
                 }
             }
+            .navigationTitle("Recipes")
         }
         .task {
             await loadRecipes()
