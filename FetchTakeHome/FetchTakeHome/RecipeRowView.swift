@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipeRowView: View {
-    let recipe: Recipe = Recipe(cuisine: "Malaysian", cuisineName: "Apam Balik", photoURLLarge: nil, photoURLSmall: "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/small.jpg", sourceURL: "https://www.nyonyacooking.com/recipes/apam-balik~SJ5WuvsDf9WQ", uuid: "0c6ca6e7-e32a-4053-b824-1dbf749910d8", youtubeURL: "https://www.youtube.com/watch?v=6R8ffRRJcrg")
+    let recipe: Recipe
     
     var body: some View {
         HStack {
@@ -34,7 +34,7 @@ struct RecipeRowView: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(recipe.cuisineName)
+                Text(recipe.name)
                     .font(.headline)
                 Text(recipe.cuisine)
                     .font(.subheadline)
@@ -48,5 +48,5 @@ struct RecipeRowView: View {
 }
 
 #Preview {
-    RecipeRowView()
+    RecipeRowView(recipe: Recipe(cuisine: "Malaysian", name: "Apam Balik", photoURLLarge: nil, photoURLSmall: "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/small.jpg", sourceURL: "https://www.nyonyacooking.com/recipes/apam-balik~SJ5WuvsDf9WQ", uuid: "0c6ca6e7-e32a-4053-b824-1dbf749910d8", youtubeURL: "https://www.youtube.com/watch?v=6R8ffRRJcrg"))
 }
