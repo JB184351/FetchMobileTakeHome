@@ -45,11 +45,6 @@
 			path = FetchTakeHomeUITests;
 			sourceTree = "<group>";
 		};
-		308D11DD2D67D8E50066812A /* Preview Content */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				308D11A62D67C6040066812A /* FetchTakeHome */,
-				308D11DD2D67D8E50066812A /* Preview Content */,
 				308D11B72D67C6060066812A /* FetchTakeHomeTests */,
 				308D11C12D67C6060066812A /* FetchTakeHomeUITests */,
 				308D11A52D67C6040066812A /* Products */,
@@ -115,7 +109,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				308D11A62D67C6040066812A /* FetchTakeHome */,
-				308D11DD2D67D8E50066812A /* Preview Content */,
 			);
 			name = FetchTakeHome;
 			packageProductDependencies = (
@@ -411,6 +404,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,6 +434,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

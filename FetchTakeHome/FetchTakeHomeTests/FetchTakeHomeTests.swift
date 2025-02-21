@@ -9,9 +9,9 @@ import Testing
 @testable import FetchTakeHome
 
 struct FetchTakeHomeTests {
-
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    
+    @Test("Testing if Recipe Response is correct")
+    func downloadingRecipesYieldsExpectedValue() async {
+        let recipes = await loadRecipes()
     }
-
 }

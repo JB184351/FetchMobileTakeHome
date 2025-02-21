@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var recipes: [Recipe] = []
-    
+ 
     var body: some View {
         NavigationStack {
             List {
@@ -20,28 +20,39 @@ struct ContentView: View {
             .navigationTitle("Recipes")
         }
         .task {
-            await loadRecipes()
+            do {
+                recipes = try await loadRecipes()
+            } catch RecipeError.invalidURL {
+                print("Invalid URL")
+            } catch RecipeError.invalidResponse {
+                print("Invalid Response")
+            } catch RecipeError.invalidData {
+                print("Invalid Data")
+            } catch {
+                print("Unexpected Error")
+            }
         }
     }
     
-    private func loadRecipes() async {
+    private func loadRecipes() async throws -> [Recipe] {
+        let endpoint = "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json"
+        
         do {
-            guard let url = URL(string: "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json") else {
-                return
+            guard let url = URL(string: endpoint) else {
+                throw RecipeError.invalidURL
             }
             
             let (data, response) = try await URLSession.shared.data(from: url)
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                return
+                throw RecipeError.invalidResponse
             }
             
             let decoder = JSONDecoder()
             let recipeResponse = try decoder.decode(RecipeResponse.self, from: data)
-            recipes = recipeResponse.recipes
+            return recipeResponse.recipes
         } catch {
-            print(error)
-            recipes = []
+            throw RecipeError.invalidData
         }
     }
 }
