@@ -18,6 +18,28 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("Recipes")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Task {
+                            do {
+                                recipes = try await loadRecipes()
+                            } catch RecipeError.invalidURL {
+                                print("Invalid URL")
+                            } catch RecipeError.invalidResponse {
+                                print("Invalid Response")
+                            } catch RecipeError.invalidData {
+                                print("Invalid Data")
+                            } catch {
+                                print("Unexpected Error")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                    }
+
+                }
+            }
         }
         .task {
             do {
