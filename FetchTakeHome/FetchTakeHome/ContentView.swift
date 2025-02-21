@@ -56,6 +56,7 @@ struct ContentView: View {
         }
     }
     
+    // TODO: - Separate Networking Code
     private func loadRecipes() async throws -> [Recipe] {
         let endpoint = "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json"
         
