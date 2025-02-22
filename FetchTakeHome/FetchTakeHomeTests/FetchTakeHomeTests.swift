@@ -10,8 +10,7 @@ import Testing
 
 struct FetchTakeHomeTests {
     
-    @Test("Testing if Recipe Response is correct")
-    func downloadingRecipesYieldsExpectedValue() async {
-        let recipes = await loadRecipes()
+    @Test func test() async throws {
+        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
     }
 }
