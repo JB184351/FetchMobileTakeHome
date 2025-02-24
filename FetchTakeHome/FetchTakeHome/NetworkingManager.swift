@@ -12,11 +12,9 @@ final class NetworkingManager {
     
     private init() {}
     
-    func loadRecipes() async throws -> [Recipe] {
-        let endpoint = "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json"
-        
+    func loadRecipes(from urlString: String = "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json) async throws") async throws -> [Recipe] {
         do {
-            guard let url = URL(string: endpoint) else {
+            guard let url = URL(string: urlString) else {
                 throw RecipeError.invalidURL
             }
             
