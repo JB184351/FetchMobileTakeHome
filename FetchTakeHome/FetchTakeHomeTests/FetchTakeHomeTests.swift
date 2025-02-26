@@ -36,4 +36,24 @@ struct FetchTakeHomeTests {
             #expect(await recipeRowView.loadImage(from: url) != nil)
         }
     }
+    
+    // Testing to see if the first recipe from the JSON file I downloaded
+    // for the valid JSON data is correct after I decode it
+    @Test func decoding() throws {
+        let networkingManager = NetworkingManager.shared
+        
+        do {
+            let decodedRecipes = try networkingManager.decode()
+            let recipe = decodedRecipes[0]
+            #expect(recipe.cuisine == "Malaysian")
+            #expect(recipe.name == "Apam Balik")
+            #expect(recipe.photoURLLarge == "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/large.jpg")
+            #expect(recipe.photoURLSmall == "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/small.jpg")
+            #expect(recipe.sourceURL == "https://www.nyonyacooking.com/recipes/apam-balik~SJ5WuvsDf9WQ")
+            #expect(recipe.uuid == "0c6ca6e7-e32a-4053-b824-1dbf749910d8")
+            #expect(recipe.youtubeURL == "https://www.youtube.com/watch?v=6R8ffRRJcrg")
+        } catch {
+            throw RecipeError.invalidResponse
+        }
+    }
 }

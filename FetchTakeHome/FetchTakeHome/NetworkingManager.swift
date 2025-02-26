@@ -31,4 +31,19 @@ final class NetworkingManager {
             throw RecipeError.invalidData
         }
     }
+    
+    func decode() throws -> [Recipe] {
+        if let url = Bundle.main.url(forResource: "recipes", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let recipeResponse = try decoder.decode(RecipeResponse.self, from: data)
+                return recipeResponse.recipes
+            } catch {
+                throw RecipeError.invalidResponse
+            }
+        }
+        
+        return []
+    }
 }
