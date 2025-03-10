@@ -1,5 +1,5 @@
 //
-//  FetchTakeHomeTests.swift
+//  RecipeDataTests.swift
 //  FetchTakeHomeTests
 //
 //  Created by Justin on 2/20/25.
@@ -12,6 +12,7 @@ import Foundation
 struct RecipeDataTests {
     
     @Test func decodesValidRecipeData() throws {
+        // Given
         let recipeJSON =
         """
         {
@@ -29,8 +30,10 @@ struct RecipeDataTests {
         }
         """.data(using: .utf8)!
         
+        // When
         let recipe = try JSONDecoder().decode(RecipeResponse.self, from: recipeJSON).recipes.first!
         
+        // Then
         #expect(recipe.cuisine == "Malaysian")
         #expect(recipe.name == "Apam Balik")
         #expect(recipe.photoURLLarge == "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/large.jpg")
@@ -42,6 +45,8 @@ struct RecipeDataTests {
     
     @Test func failsToDecodeInvalidYouTubeURL() async throws {
         // Removed the sourceURL for this specific test
+    
+        // Given
         let recipeJSON =
         """
         {
@@ -59,12 +64,14 @@ struct RecipeDataTests {
         }
         """.data(using: .utf8)!
         
+        // Then
         #expect(throws: DecodingError.self) {
             _ = try JSONDecoder().decode(RecipeResponse.self, from: recipeJSON)
         }
     }
     
     @Test func decodeRecipesWithNullSourceURL() async throws {
+        // Given
         let recipeJSON =
         """
         {
@@ -82,8 +89,10 @@ struct RecipeDataTests {
         }
         """.data(using: .utf8)!
         
+        // When
         let recipe = try JSONDecoder().decode(RecipeResponse.self, from: recipeJSON).recipes.first!
         
+        // Then
         #expect(recipe.cuisine == "Malaysian")
         #expect(recipe.name == "Apam Balik")
         #expect(recipe.photoURLLarge == "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/large.jpg")
