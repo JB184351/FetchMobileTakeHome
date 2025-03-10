@@ -30,8 +30,8 @@ struct RecipeRowView: View {
     }
     
     func loadImage(from url: URL) -> some View {
-        AsyncImage(url: url) { image in
-            switch image {
+        AsyncImage(url: url) { phase in
+            switch phase {
             case .empty:
                 ProgressView()
                     .frame(width: 60, height: 60)
