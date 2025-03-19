@@ -15,9 +15,17 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(recipes, id: \.uuid) { recipe in
-                    RecipeRowView(recipe: recipe)
+            Group {
+                if recipes.count > 0 {
+                    List {
+                        ForEach(recipes, id: \.uuid) { recipe in
+                            RecipeRowView(recipe: recipe)
+                        }
+                    }
+                } else {
+                    ContentUnavailableView {
+                        Label("Could Not Load Recipes, press the refresh button to try again.", systemImage: "exclamationmark.triangle")
+                    }
                 }
             }
             .navigationTitle("Recipes")
@@ -43,32 +51,32 @@ struct ContentView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
-
+                    
                 }
             }
-        }
-        .task {
-            do {
-                try await self.loadRecipes()
-            } catch {
-               print(error)
+            .task {
+                do {
+                    try await self.loadRecipes()
+                } catch {
+                    print(error)
+                }
             }
-        }
-        .refreshable {
-            do {
-                try await self.loadRecipes()
-            } catch {
-                print(error)
+            .refreshable {
+                do {
+                    try await self.loadRecipes()
+                } catch {
+                    print(error)
+                }
+                
+                selectedCuisineType = nil
             }
-            
-            selectedCuisineType = nil
-        }
-        .onChange(of: selectedCuisineType) { oldValue, newValue in
-            // Decided to call the network call because the data could
-            // theoretically update on the backend at any time so
-            // we always want to filter with the newest data available
-            Task {
-                try await self.loadRecipes(with: newValue)
+            .onChange(of: selectedCuisineType) { oldValue, newValue in
+                // Decided to call the network call because the data could
+                // theoretically update on the backend at any time so
+                // we always want to filter with the newest data available
+                Task {
+                    try await self.loadRecipes(with: newValue)
+                }
             }
         }
     }
