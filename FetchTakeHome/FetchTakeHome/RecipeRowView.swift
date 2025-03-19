@@ -13,24 +13,7 @@ struct RecipeRowView: View {
     var body: some View {
         HStack {
             if let urlString = recipe.photoURLSmall, let url = URL(string: urlString) {
-                AsyncImage(url: url) { image in
-                    switch image {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: 60, height: 60)
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                    case .failure:
-                        Image(systemName: "photo")
-                            .frame(width: 60, height: 60)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
+                loadImage(from: url)
             }
             
             VStack(alignment: .leading, spacing: 4) {
@@ -44,6 +27,28 @@ struct RecipeRowView: View {
             Spacer()
         }
         .padding(.vertical, 8)
+    }
+    
+    func loadImage(from url: URL) -> some View {
+        AsyncImage(url: url) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .frame(width: 60, height: 60)
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            case .failure:
+                Image(systemName: "photo")
+                    .frame(width: 60, height: 60)
+            @unknown default:
+                EmptyView()
+            }
+        }
+
     }
 }
 
