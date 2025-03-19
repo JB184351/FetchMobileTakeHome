@@ -23,17 +23,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            do {
-                                recipes = try await networkingManager.loadRecipes()
-                            } catch RecipeError.invalidURL {
-                                print("Invalid URL")
-                            } catch RecipeError.invalidResponse {
-                                print("Invalid Response")
-                            } catch RecipeError.invalidData {
-                                print("Invalid Data")
-                            } catch {
-                                print("Unexpected Error")
-                            }
+                            try await self.loadRecipes()
                         }
                     } label: {
                         Image(systemName: "arrow.clockwise")
@@ -44,16 +34,31 @@ struct ContentView: View {
         }
         .task {
             do {
-                recipes = try await networkingManager.loadRecipes()
-            } catch RecipeError.invalidURL {
-                print("Invalid URL")
-            } catch RecipeError.invalidResponse {
-                print("Invalid Response")
-            } catch RecipeError.invalidData {
-                print("Invalid Data")
+                try await self.loadRecipes()
             } catch {
-                print("Unexpected Error")
+               print(error)
             }
+        }
+        .refreshable {
+            do {
+                try await self.loadRecipes()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    private func loadRecipes(with filter: String = "") async throws {
+        do {
+            recipes = try await networkingManager.loadRecipes()
+        } catch RecipeError.invalidURL {
+            print("Invalid URL")
+        } catch RecipeError.invalidResponse {
+            print("Invalid Response")
+        } catch RecipeError.invalidData {
+            print("Invalid Data")
+        } catch {
+            print("Unexpected Error")
         }
     }
 }
