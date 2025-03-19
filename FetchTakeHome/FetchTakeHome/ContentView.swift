@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var recipes: [Recipe] = []
+    @State private var cuisineTypes: Set<String> = []
+    @State var selectedCuisineType: String? = nil
     let networkingManager = NetworkingManager.shared
     
     var body: some View {
@@ -20,20 +22,23 @@ struct ContentView: View {
             }
             .navigationTitle("Recipes")
             .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Menu {
+                        Picker("", selection: $selectedCuisineType) {
+                            ForEach(cuisineTypes.sorted(by: <), id: \.self) { cuisineType in
+                                Text(cuisineType).tag(cuisineType)
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease")
+                    }
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         Task {
-                            do {
-                                recipes = try await networkingManager.loadRecipes()
-                            } catch RecipeError.invalidURL {
-                                print("Invalid URL")
-                            } catch RecipeError.invalidResponse {
-                                print("Invalid Response")
-                            } catch RecipeError.invalidData {
-                                print("Invalid Data")
-                            } catch {
-                                print("Unexpected Error")
-                            }
+                            selectedCuisineType = nil
+                            try await self.loadRecipes()
                         }
                     } label: {
                         Image(systemName: "arrow.clockwise")
@@ -44,20 +49,54 @@ struct ContentView: View {
         }
         .task {
             do {
-                recipes = try await networkingManager.loadRecipes()
-            } catch RecipeError.invalidURL {
-                print("Invalid URL")
-            } catch RecipeError.invalidResponse {
-                print("Invalid Response")
-            } catch RecipeError.invalidData {
-                print("Invalid Data")
+                try await self.loadRecipes()
             } catch {
-                print("Unexpected Error")
+               print(error)
+            }
+        }
+        .refreshable {
+            do {
+                try await self.loadRecipes()
+            } catch {
+                print(error)
+            }
+            
+            selectedCuisineType = nil
+        }
+        .onChange(of: selectedCuisineType) { oldValue, newValue in
+            // Decided to call the network call because the data could
+            // theoretically update on the backend at any time so
+            // we always want to filter with the newest data available
+            Task {
+                try await self.loadRecipes(with: newValue)
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
+    
+    private func loadRecipes(with filter: String? = nil) async throws {
+        do {
+            var recipes = try await networkingManager.loadRecipes()
+            
+            cuisineTypes = getAllCuisineTypes(from: recipes)
+            
+            if let filter = filter {
+                recipes = recipes.filter { $0.cuisine.contains(filter) }
+            }
+            
+            self.recipes = recipes
+            
+        } catch RecipeError.invalidURL {
+            print("Invalid URL")
+        } catch RecipeError.invalidResponse {
+            print("Invalid Response")
+        } catch RecipeError.invalidData {
+            print("Invalid Data")
+        } catch {
+            print("Unexpected Error")
+        }
+    }
+    
+    private func getAllCuisineTypes(from recipes: [Recipe]) -> Set<String> {
+        return Set(recipes.map { $0.cuisine } )
+    }
 }
