@@ -27,6 +27,17 @@ struct RecipeServiceTests {
         #expect(recipes[0].youtubeURL == nil)
     }
     
+    @Test func fetchRecipesWithNoRecipes() async throws {
+        // Given
+        let mockService = MockRecipeService()
+        
+        // When
+        let recipes = try await mockService.fetchEmptyRecipes()
+        
+        // Then
+        #expect(recipes.count == 0)
+    }
+    
     @Test func handlesError() async throws {
         // Given
         let mockService = MockRecipeService()
@@ -92,5 +103,16 @@ class MockRecipeService: RecipeRetrievableService {
         }
         
         return sampleRecipeResponse.recipes
+    }
+    
+    func fetchEmptyRecipes() async throws -> [Recipe] {
+        isLoading = true
+        defer { isLoading = false }
+        
+        if delayInSeconds > 0 {
+            try await Task.sleep(for: .seconds(delayInSeconds))
+        }
+        
+        return []
     }
 }

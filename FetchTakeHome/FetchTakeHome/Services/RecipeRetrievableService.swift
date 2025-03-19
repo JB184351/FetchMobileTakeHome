@@ -16,4 +16,10 @@ protocol RecipeRetrievableService {
     ///  - Returns: An array of `Recipe` objects
     ///  - Throws: An error if the operations fails
     func fetchRecipes() async throws -> [Recipe]
+    
+    /// Asynchronously fetches an empty array of Recipes from the data source
+    /// Added this case due to having an example of an url that returns an empty array of recipes
+    ///  - Returns: An empty array of `Recipe` objects
+    ///  - Throws: An error if the operations fails
+    func fetchEmptyRecipes() async throws -> [Recipe]
 }
