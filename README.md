@@ -14,7 +14,7 @@ I did also look into image caching but I couldn't understand the information I w
 ### Time Spent: Approximately how long did you spend working on this project? How did you allocate your time?
 I think the most time I spent on this project was with Unit Testing because the concept was unfamiliar to me and I wanted to learn this without using AI so I did a lot of
 googling around and learning how Unit Tests work and felt my tests reflect what I learn, though I'm sure there are ways to improve them in the future as I learn more about
-Unit Tests. I believe I spent about 12 hours due to mostly Unit Testing, if I were to break it down I think it would look like this.
+Unit Tests. I believe I spent about 11.5 hours due to mostly Unit Testing, if I were to break it down I think it would look like this.
 
 ~1.5 Hours for fetching the data and displaying the Recipes and making sure that worked.
 ~5 hours for Unit Testing due to not knowing much about it and implementing it and testing it
@@ -25,6 +25,9 @@ in my implementation.
 functionality was working properly.
 ~0.5 Hours double/triple/quadruple checking requirements and seeing a couple of things I forgot like creating an
 empty state if data were to not come back from the server.
+~0.5 Hours considering adding another view to play the youtube video from the url provided but decided not to add
+it because it would take me awhile to work out a solution and likely not completely understanding the solution in a 
+good amount of time to feel good about submitting it as part of my project.
 
 ### Trade-offs and Decisions: Did you make any significant trade-offs in your approach?
 This is similar to my weakest part of the project but caching is something I decided not to add to this project.
