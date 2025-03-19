@@ -77,6 +77,8 @@ struct ContentView: View {
         do {
             var recipes = try await networkingManager.loadRecipes()
             
+            cuisineTypes = getAllCuisineTypes(from: recipes)
+            
             if let filter = filter {
                 recipes = recipes.filter { $0.cuisine.contains(filter) }
             }
@@ -94,7 +96,7 @@ struct ContentView: View {
         }
     }
     
-    private func getAllCuisineTypes() {
-        cuisineTypes = Set(recipes.map { $0.cuisine })
+    private func getAllCuisineTypes(from recipes: [Recipe]) -> Set<String> {
+        return Set(recipes.map { $0.cuisine } )
     }
 }
