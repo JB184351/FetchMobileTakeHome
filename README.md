@@ -16,16 +16,16 @@ I think the most time I spent on this project was with Unit Testing because the 
 googling around and learning how Unit Tests work and felt my tests reflect what I learn, though I'm sure there are ways to improve them in the future as I learn more about
 Unit Tests. I believe I spent about 11.5 hours due to mostly Unit Testing, if I were to break it down I think it would look like this.
 
-~1.5 Hours for fetching the data and displaying the Recipes and making sure that worked.
-~5 hours for Unit Testing due to not knowing much about it and implementing it and testing it
+- ~1.5 Hours for fetching the data and displaying the Recipes and making sure that worked.
+- ~5 hours for Unit Testing due to not knowing much about it and implementing it and testing it
 took some time.
-~3 hours looking into Image Caching and trying some things but couldn't understand or successful
+- ~3 hours looking into Image Caching and trying some things but couldn't understand or successful
 in my implementation.
-~1 hour of implementing filtering and list refreshing in various ways, this was fun and made sure this 
+- ~1 hour of implementing filtering and list refreshing in various ways, this was fun and made sure this 
 functionality was working properly.
-~0.5 Hours double/triple/quadruple checking requirements and seeing a couple of things I forgot like creating an
+- ~0.5 Hours double/triple/quadruple checking requirements and seeing a couple of things I forgot like creating an
 empty state if data were to not come back from the server.
-~0.5 Hours considering adding another view to play the youtube video from the url provided but decided not to add
+- ~0.5 Hours considering adding another view to play the youtube video from the url provided but decided not to add
 it because it would take me awhile to work out a solution and likely not completely understanding the solution in a 
 good amount of time to feel good about submitting it as part of my project.
 
